@@ -124,5 +124,5 @@ Creating example sale
 
 ## Usage
 
-On Indomnia software
+### On Insomnia software </br>
 ![img](/public/assets/customers.gif)
