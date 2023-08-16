@@ -17,6 +17,14 @@ function errorMessages(res, err) {
         });
     }
 
+    if (String(err).includes(`Check`)) {
+        return res.status(400).json({
+            status: `Error`,
+            //statusMessage: String(err).replace("Error: ", ""),
+            response: String(err)
+        });
+    }
+
     if (String(err).includes(`Error:`)) {
         return res.status(400).json({
             status: `Error`,

@@ -1,17 +1,18 @@
 const connect = require('./db.service');
+const { deleteInventory, updateInventory, addInventory } = require('./inventory.service');
 
     async function getProducts() {
         const db = await connect();
-        const query = `SELECT * FROM products;`;
+        const get_all_products = `SELECT * FROM products;`;
 
-        const [products] = await db.query(query);
+        const [products] = await db.query(get_all_products);
 
         return products;
     }
 
     async function getProductById(product_id) {
         const db = await connect();
-        const query = `
+        const get_product_by_id = `
         SELECT 
             * 
         FROM 
@@ -20,7 +21,7 @@ const connect = require('./db.service');
             p.product_id = ${product_id};
         `;
 
-        const [[products]] = await db.query(query);
+        const [[products]] = await db.query(get_product_by_id);
 
         if(!products){
             throw new Error('Product not found.');
@@ -31,23 +32,25 @@ const connect = require('./db.service');
     async function addProduct(product_data){
         const db = await connect();
 
-        const query = `
+        const add_one_product = `
         INSERT INTO 
             products (name, description, price) 
         VALUES 
             ('${product_data.name}', '${product_data.description}', ${product_data.price});
         `;
 
-        await db.query(query);
+        await db.query(add_one_product);
 
-        const query2 = `
-        INSERT INTO 
-            product_inventory (product_id, available_quantity) 
-        VALUES 
-            ((SELECT product_id from products p WHERE p.name = '${product_data.name}'), ${product_data.quantity});
-        `;
+        // const query2 = `
+        // INSERT INTO 
+        //     product_inventory (product_id, available_quantity) 
+        // VALUES 
+        //     ((SELECT product_id from products p WHERE p.name = '${product_data.name}'), ${product_data.quantity});
+        // `;
 
-        await db.query(query2);
+        // await db.query(query2);
+
+        await addInventory(product_data.name, product_data.quantity);
         
         return `${product_data.name} successfully inserted in database!`;
     }
@@ -61,7 +64,7 @@ const connect = require('./db.service');
             update = `${update} ${attribute} = '${product_data[attribute]}'`;
         }
 
-        const query = `
+        const update_one_product = `
         UPDATE
             products
         SET 
@@ -70,7 +73,7 @@ const connect = require('./db.service');
             product_id = ${product_id};
         `
 
-        await db.query(query);
+        await db.query(update_one_product);
 
         return `Product successfully updated in database!`;
     }
@@ -78,27 +81,17 @@ const connect = require('./db.service');
     async function deleteProduct(product_id) {
         const db = await connect();
 
-        const query1 = `
-        DELETE FROM
-            product_inventory pin
-        WHERE
-            pin.product_id = ${product_id};
-        `
-        const result1 = await db.query(query1);
+        await deleteInventory(product_id);
 
-        if(!result1.affectedRows){
-            throw new Error('Product not found on inventory.');
-        }
-
-        const query2 = `
+        const delete_one_product = `
         DELETE FROM
             products p
         WHERE
             p.product_id = ${product_id};
         `
-        const result2 = await db.query(query2);
+        const [result] = await db.query(delete_one_product);
 
-        if(!result2.affectedRows){
+        if(!result.affectedRows){
             throw new Error('Product not found.');
         }
 
