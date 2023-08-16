@@ -124,5 +124,5 @@ Creating example sale
 
 ## Usage
 
-
+On Indomnia software
 ![img](/public/assets/customers.gif)
