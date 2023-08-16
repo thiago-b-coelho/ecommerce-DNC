@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const products = require('../services/products.service');
-const productsController = require('../controllers/products.controller')
-const errorMessages = require('../functions/errorMessages');
-const dotenv = require('dotenv');
-dotenv.config();
+const productsController = require('../controllers/products.controller');
 
 router.get('/', productsController.getAll);
 

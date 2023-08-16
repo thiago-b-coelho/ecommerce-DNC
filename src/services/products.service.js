@@ -1,4 +1,3 @@
-const { json } = require('express');
 const connect = require('./db.service');
 
     async function getProducts() {
