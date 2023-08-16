@@ -4,7 +4,7 @@ const salesController = require('../controllers/sales.controller');
 
 router.get('/', salesController.getAll);
 
-router.get('/:id', salesController.getOne);
+router.get('/:name', salesController.getOne);
 
 router.post('/', salesController.create);
 

@@ -138,44 +138,11 @@ const { updateInventoryByName } = require('./inventory.service');
     }
 
     async function updateSale(customer_id, customer_data) {
-        const db = await connect();
-        
-        let update = '';
-
-        for (const attribute in customer_data){
-            update = `${update} ${attribute} = '${customer_data[attribute]}'`;
-        }
-
-        const query = `
-        UPDATE
-            customers
-        SET 
-            ${update}
-        WHERE
-            customer_id = ${customer_id};
-        `
-
-        await db.query(query);
-
-        return `Customer successfully updated in database!`;
+        return `NOT FUNCTIONAL YET!`;
     }
 
-    async function deleteSale(customer_id) {
-        const db = await connect();
-
-        const query = `
-        DELETE FROM
-            customers c
-        WHERE
-            c.customer_id = ${customer_id};
-        `
-        const result = await db.query(query);
-
-        if(!result.affectedRows){
-            throw new Error('Customer not found.');
-        }
-
-        return `Customer successfully deleted from database!`
+    async function deleteSale(sale_id) {
+        return 'NOT FUNCTIONAL YET!'
     }
 
 

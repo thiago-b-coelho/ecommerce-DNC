@@ -3,7 +3,16 @@ const { deleteInventory, updateInventory, addInventory } = require('./inventory.
 
     async function getProducts() {
         const db = await connect();
-        const get_all_products = `SELECT * FROM products;`;
+        const get_all_products = `
+            SELECT 
+                p.*,
+                pinv.available_quantity 
+            FROM 
+                products p 
+            INNER JOIN
+                product_inventory pinv 
+            ON 
+                p.product_id = pinv.product_id;`;
 
         const [products] = await db.query(get_all_products);
 

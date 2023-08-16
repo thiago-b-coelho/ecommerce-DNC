@@ -11,7 +11,7 @@ async function getAll(req, res) {
 
 async function getOne(req, res) {
     try {
-        return res.status(200).json(await sales.getSalesByCustomer(req.params.id));
+        return res.status(200).json(await sales.getSalesByCustomer(req.params.name));
     } catch (error) {
         return errorMessages(res, error);
     }
