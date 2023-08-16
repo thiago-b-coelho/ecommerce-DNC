@@ -8,14 +8,8 @@ const port = 3000;
 app.use(express.json());
 app.use('/products', products);
 
-//app.use((err, req, res, next) => {
-//     const statusCode = err.statusCode || 500;
-//     console.error(err.message, err.stack);
-//     res.status(statusCode).json({message: err.message});
-// });
-
 app.get('/', (req, res) => {
-    res.send('Hii')
+    res.send('<h1>For now only "/products" route is functional</h1>')
 })
 
 app.listen(port, () => {
