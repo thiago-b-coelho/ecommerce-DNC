@@ -1,7 +1,5 @@
-# Beauty Store e-commerce DNC API
-REST API challenge for the DNC technology graduation. In this </br>
-challenge, the API should be able to 'mimic' a real e-commerce </br>
-store. It should be able to create, list, update and delete users and </br>
+# Beauty Store e-commerce demo API
+The API should be able to 'mimic' a real e-commerce store.</br> It should be able to create, list, update and delete users and </br>
 products and for sales it should be able to create and list them.
 
 ## Table of contents
